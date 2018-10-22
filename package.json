@@ -1,0 +1,27 @@
+{
+  "name": "andreymoser.github.io",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "engines": {
+    "node": "10.8.0",
+    "npm": "6.2.0"
+  },
+  "scripts": {
+    "dev": "node dev/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/andreymoser/andreymoser.github.io.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/andreymoser/andreymoser.github.io/issues"
+  },
+  "homepage": "https://github.com/andreymoser/andreymoser.github.io",
+  "dependencies": {
+    "express": "^4.16.4",
+    "open-browsers": "^1.1.1"
+  }
+}
