@@ -18,6 +18,14 @@ class: center, middle
 
 Notes...
 
+# Advantages
+- Memory efficiency: you don’t need to load large amounts of data in memory before you are able to process it.
+- Time efficiency: it takes way less time to start processing data as soon as you have it, rather than waiting till the whole data payload is available to start.
+
+# Disadvantages
+- Debugging and troubleshooting complexity
+- Asynchronous handling paradigm
+
 ---
 
 # Stream (Computer Science)
@@ -34,7 +42,8 @@ Notes...
 
 # Stream and buffer example
 
-.center[<img src="./img/stream_example.gif" style='height: 60%; width: 60%; object-fit: contain'>]
+.center[<img src="./img/stream_example.gif" style='height: 60%; width: 60%; object-fit: contain'><br>*copyright: http://www.planetoftunes.com*
+]
 
 ???
 
@@ -69,9 +78,6 @@ Notes...
 - Streams and pipes
 
 --
-- Pipeline
-
---
 - Stream and promises
 
 --
@@ -83,9 +89,9 @@ Notes...
 
 ---
 
-# Source & Destination (I/O)
+# .center[Source & Destination (I/O)]
 
-<img src="./img/node-streams-io.png" style='height: 60%; width: 60%; object-fit: contain'>
+.center[<img src="./img/node-streams-io.png" style='height: 60%; width: 60%; object-fit: contain'>]
 
 ???
 
@@ -120,13 +126,24 @@ Notes...
 - ### Backpressuring
   * `highWaterMark` mechanism
 
+.center[<img src="./img/stream_example.gif" style='height: 40%; width: 40%; object-fit: contain'>]
+
 ???
 
 Notes...
 
----     
+---
 
-# Event Emitters
+# .center[Event Emitters]
+
+.center[<img src="./img/node-streams-io.png" style='height: 50%; width: 50%; object-fit: contain'>]
+
+```node
+stream.on('readable', console.log('next chunk is available'));
+stream.on('data', data => console.log(`chunk read: ${data.toString()}`));
+stream.on('end', () => console.log('finished: read the whole data'));
+stream.on('error', (err) => console.error(err));
+``` 
 
 ???
 
@@ -136,16 +153,16 @@ Notes...
 
 # Node.js stream types
 
-- ### Readable: *read data (source)*
+- ### 👀 Readable: *read data (1 source)*
 --
 
-- ### Writable: *write data (destination)*
+- ### ✍️ Writable: *write data (1 destination)*
 --
 
-- ### Duplex: *readable and writeble*
+- ### ↔️ Duplex: *readable and writeble (2 sources and 2 destinations)* 
 --
 
-- ### Transform: *duplex calculated*
+- ### 🦋 Transform: *duplex calculated*
 
 ???
 
@@ -153,7 +170,16 @@ Notes...
 
 ---
 
-# Readable stream 
+# 👀 Readable stream (download example)
+
+```node
+const https = require('https');
+
+https.get('https://speed.hetzner.de/100MB.bin', (download) => {
+  download.on('data', data => console.log(data));
+  download.on('end', () => console.log('done'));
+}).on('error', console.error);
+```
 
 ???
 
@@ -161,7 +187,85 @@ Notes...
 
 ---
 
-# Writable stream
+# 🚰 Readable & Writeable streams
+
+> [HTTP Server example from node.js docs](https://nodejs.org/api/stream.html#stream_stream)
+```node
+const http = require('http');
+const server = http.createServer((req, res) => {
+  // req is a Readable Stream & res is a Writable Stream
+  let body = '';
+  req.setEncoding('utf8');
+  // Readable streams emit 'data' events once a listener is added
+  req.on('data', (chunk) => {
+    body += chunk;
+  });
+  // the 'end' event indicates that the entire body has been received
+  req.on('end', () => {
+    try {
+      const data = JSON.parse(body);
+      data.message = 'Hello world';
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      res.write(JSON.stringify(data));
+      res.end();
+    } catch (er) {
+      res.statusCode = 400;
+      return res.end(`error: ${er.message}`);
+    }
+  });
+});
+server.listen(9000);
+```
+---
+
+# 👨‍🔧 Pipes: Readable & Writeable streams
+
+```node
+const http = require('http');
+const https = require('https');
+
+const server = http.createServer((req, res) => 
+  https.get('https://speed.hetzner.de/100MB.bin', (download) => {
+    download.pipe(res);
+  }).on('error', (err) => {
+    console.error(err);
+  }));
+server.listen(9000);
+```
+
+---
+
+# Node.js streams...
+
+--
+
+.center[<img src="./img/node-streams-everywhere.jpg" style='height: 900%; width: 90%; object-fit: contain'>]
+
+---
+
+# Success cases 🚀
+
+- HTTP/S requests and responses (`http` and `https` modules)
+
+--
+- File system (`fs` module)
+
+--
+- Chats using sockets (TCP connection using duplex stream with `net` module)
+
+--
+- MongoDB streams (`db.find({})`)
+
+--
+- AWS S3 upload and download streams
+
+--
+- Producer and consumers (via RabbitMQ, Kafka, ActiveMQ, etc...)
+
+--
+- And so on...
+
+--
 
 ???
 
@@ -169,23 +273,21 @@ Notes...
 
 ---
 
-# Streams and pipes
+# Stream and promises case #1
 
-???
+> Consumer stream bad practice (no backpressuring to promise)
 
-Notes...
+```node
+const _ = require('highland');
 
----
+const db = require('./db'); 
+const app = require('./app'); 
 
-# Pipeline
+const consumer = app.subscribeTopic('abc');
 
-???
-
-Notes...
-
----
-
-# Stream and promises
+consumer.on('data', message =>
+  db.find({ _id: message._id }).then(data => handlerAsync(data)));
+```
 
 ???
 
@@ -195,38 +297,108 @@ Notes...
 
 # Highland library
 
+- https://github.com/caolan/highland
+- http://highlandjs.org/#backpressure
+
+Everything can be converted and tied to streams! 🚀
+
+--
+
+```node
+const _ = require('highland');
+
+_([1, 2, 3, 4])
+  .on('data', console.log)
+  .on('end', () => console.log('done'));
+```
+
+--
+
+
+output >>
+```node
+1
+2
+3
+4
+done
+```
+---
+
+# Stream and promises case #2
+
+> Consumer stream good practice (there is backpressuring to promise)
+
+```node
+const _ = require('highland');
+
+const db = require('./db'); 
+const app = require('./app'); 
+
+const consumer = app.subscribeTopic('abc');
+
+function myPromise(message) {
+  return db.find({ _id: message._id })
+    .then(data => handlerAsync(data));
+}
+
+_(consumer)
+  .flatMap(message => _(myPromise(message)))
+  .stopOnError(err => console.err)
+  .done(() => console.log('done'));
+```
+
+---
+
+# Troubleshooting, debugging and other tips
+
+- Pause the source stream for multiple piping, resume after all pipes
+- Use logging (debug level) libraries for all events in data flow
+- Add relevant data to debugging
+- 3rd parties streams migth not follow the standard events
+- Be aware about the 3rd parties libraries version
+
 ???
 
 Notes...
 
+---
+
+# Study Homework 🙈
+
+- Check the events for Readable and Writeable streams
+- Check how to implement a Readable or Writeable stream
+- Pipe several streams together and get fun (e.g.: upload file to HTTP server -> count data -> apply checksum -> zip content -> upload to S3 and store reference to database)
+- Check the pipeline method available on `stream` module
+- Check the differences between the 4 streams versions (they are backward compatible)
 
 ---
 
 # References
 
-- https://medium.freecodecamp.org/node-js-streams-everything-you-need-to-know-c9141306be93
-- http://dominictarr.com
-- https://nodejs.org/api/stream.html#stream_stream
-- http://highlandjs.org
-- http://www.planetoftunes.com/computer/caching-and-streaming.html#.W8tEOhNKiAw
-
 - https://en.wikipedia.org/wiki/Stream_(computing)
-
+- https://nodejs.org/api/stream.html
 - https://nodejs.org/en/docs/guides/backpressuring-in-streams/
-
+- https://medium.freecodecamp.org/node-js-streams-everything-you-need-to-know-c9141306be93
 - https://www.slideshare.net/sspringer82/streams-in-nodejs
 - https://codeburst.io/nodejs-streams-demystified-e0b583f0005
+- https://flaviocopes.com/nodejs-streams/
+- http://www.planetoftunes.com/computer/caching-and-streaming.html
+- http://highlandjs.org/#backpressure
+- https://medium.com/the-node-js-collection/a-brief-history-of-node-streams-pt-1-3401db451f21
+- https://medium.com/the-node-js-collection/a-brief-history-of-node-streams-pt-2-bcb6b1fd7468
+
+---
+
+# Q & A
+
+
+???
+
+Notes...
+
 ---
 
 # .center[Thank you! :)]
 
 ## .center[<img src="./img/twitter.png" style='height: 40px; width: 40px;'/> [@andreymoser](http://twitter.com/andreymoser)]
-
----
-
-# Notes:
-
-- https://nodejs.org/api/stream.html#stream_types_of_streams
-- https://github.com/gnab/remark/wiki/Markdown#class
-- https://en.support.wordpress.com/markdown-quick-reference/
-- https://github.com/gnab/remark/wiki/Markdown#slide-notes
