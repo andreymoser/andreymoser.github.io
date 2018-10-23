@@ -1,9 +1,10 @@
 class: center, middle
 
+background-image: url(./img/stream_cover_page.jpg)
+
 # Node.js Streams as a piece of cake 🍰
 
 .center[Andrey Bidinotto] <img src="./img/twitter.png" style='height: 20px; width: 20px;'/> [@andreymoser](http://twitter.com/andreymoser)
-
 
 .center[[12th Node.js POA Meetup](https://www.meetup.com/pt-BR/Node-js-Porto-Alegre-Meetup/events/255164211/)] November 2018
 
