@@ -278,12 +278,9 @@ Notes...
 > Consumer stream bad practice (no backpressuring to promise)
 
 ```node
-const _ = require('highland');
+const { db, handlerAsync, subscribeTopic } = require('./app');
 
-const db = require('./db'); 
-const app = require('./app'); 
-
-const consumer = app.subscribeTopic('abc');
+const consumer = subscribeTopic('abc');
 
 consumer.on('data', message =>
   db.find({ _id: message._id }).then(data => handlerAsync(data)));
@@ -332,10 +329,9 @@ done
 ```node
 const _ = require('highland');
 
-const db = require('./db'); 
-const app = require('./app'); 
+const { db, handlerAsync, subscribeTopic } = require('./app');
 
-const consumer = app.subscribeTopic('abc');
+const consumer = subscribeTopic('abc');
 
 function myPromise(message) {
   return db.find({ _id: message._id })
