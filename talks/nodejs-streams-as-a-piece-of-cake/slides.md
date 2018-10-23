@@ -160,7 +160,7 @@ Notes...
 - ### ✍️ Writable: *write data (1 destination)*
 --
 
-- ### ↔️ Duplex: *readable and writeble (2 sources and 2 destinations)* 
+- ### ↔️ Duplex: *readable and writeable (2 sources and 2 destinations)* 
 --
 
 - ### 🦋 Transform: *duplex calculated*
@@ -225,12 +225,13 @@ server.listen(9000);
 const http = require('http');
 const https = require('https');
 
-const server = http.createServer((req, res) => 
+const server = http.createServer((req, res) => {
   https.get('https://speed.hetzner.de/100MB.bin', (download) => {
     download.pipe(res);
   }).on('error', (err) => {
     console.error(err);
-  }));
+  });
+});
 server.listen(9000);
 ```
 
@@ -341,7 +342,7 @@ function myPromise(message) {
 
 _(consumer)
   .flatMap(message => _(myPromise(message)))
-  .stopOnError(err => console.err)
+  .stopOnError(err => console.error(err))
   .done(() => console.log('done'));
 ```
 
