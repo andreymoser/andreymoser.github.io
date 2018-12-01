@@ -1,13 +1,15 @@
 class: center, middle
 
-background-image: url(./img/stream_cover_page.jpg)
-
 # Node.js Streams as a piece of cake 🍰
 
-.center[Andrey Bidinotto] <img src="./img/twitter.png" style='height: 20px; width: 20px;'/> [@andreymoser](http://twitter.com/andreymoser)
+.center[Andrey Bidinotto]
+.center[Software Architect @ [e-Core](http://twitter.com/ecoreBR) | Startup Founder]
+.center[<img src="./img/twitter.png" style='height: 20px; width: 20px;'/> [@andreymoser](http://twitter.com/andreymoser)]
 
-.center[[12th Node.js POA Meetup](https://www.meetup.com/pt-BR/Node-js-Porto-Alegre-Meetup/events/255164211/)] November 2018
 
+.center[Talk presented to:]
+.center[[TDC Porto Alegre on Dec 2018](http://www.thedevelopersconference.com.br/tdc/2018/portoalegre/trilha-nodejs)]
+.center[[Node.js POA Meetup on Nov 2018](https://www.meetup.com/pt-BR/Node-js-Porto-Alegre-Meetup/events/255164211/)]
 
 ---
 
@@ -362,13 +364,13 @@ Notes...
 
 ---
 
-# Study Homework 🙈
+# Interesting topics
 
-- Check the events for Readable and Writeable streams
-- Check how to implement a Readable or Writeable stream
-- Pipe several streams together and get fun (e.g.: upload file to HTTP server -> count data -> apply checksum -> zip content -> upload to S3 and store reference to database)
-- Check the pipeline method available on `stream` module
-- Check the differences between the 4 streams versions (they are backward compatible)
+- Events for Readable, Writeable and Duplex streams
+- Readable and Writeable stream implementation
+- Several streams piping (e.g.: upload file to HTTP server -> count data -> apply checksum -> zip content -> upload to S3 and store reference to database)
+- The `stream` module and its `pipeline` method
+- The 4 streams versions (they are backward compatible)
 
 ---
 
@@ -400,3 +402,5 @@ Notes...
 # .center[Thank you! :)]
 
 ## .center[<img src="./img/twitter.png" style='height: 40px; width: 40px;'/> [@andreymoser](http://twitter.com/andreymoser)]
+
+## .center[<img src="./img/github.png" style='height: 40px; width: 40px;'/> [andreymoser.github.io](https://andreymoser.github.io/talks/nodejs-streams-as-a-piece-of-cake)]
