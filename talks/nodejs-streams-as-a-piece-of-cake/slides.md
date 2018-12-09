@@ -56,34 +56,15 @@ Notes...
 
 # Node.js Streams talk topics
 
---
 - Source & Destination (I/O)
-
---
 - Data (object mode)
-
---
 - Stream buffering
-
---
 - Event Emitters
-
---
 - Stream Types
-
---
 - Readable stream 
-
---
 - Writable stream
-
---
 - Streams and pipes
-
---
 - Stream and promises
-
---
 - Highland 
 
 ???
@@ -157,14 +138,8 @@ Notes...
 # Node.js stream types
 
 - ### 👀 Readable: *read data (1 source)*
---
-
 - ### ✍️ Writable: *write data (1 destination)*
---
-
 - ### ↔️ Duplex: *readable and writeable (2 sources and 2 destinations)* 
---
-
 - ### 🦋 Transform: *duplex calculated*
 
 ???
@@ -241,8 +216,6 @@ server.listen(9000);
 
 # Node.js streams...
 
---
-
 .center[<img src="./img/node-streams-everywhere.jpg" style='height: 900%; width: 90%; object-fit: contain'>]
 
 ---
@@ -250,23 +223,11 @@ server.listen(9000);
 # Success cases 🚀
 
 - HTTP/S requests and responses (`http` and `https` modules)
-
---
 - File system (`fs` module)
-
---
 - Chats using sockets (TCP connection using duplex stream with `net` module)
-
---
 - MongoDB streams (`db.find({})`)
-
---
 - AWS S3 upload and download streams
-
---
 - Producer and consumers (via RabbitMQ, Kafka, ActiveMQ, etc...)
-
---
 - And so on...
 
 --
@@ -303,8 +264,6 @@ Notes...
 
 Everything can be converted and tied to streams! 🚀
 
---
-
 ```node
 const _ = require('highland');
 
@@ -312,9 +271,6 @@ _([1, 2, 3, 4])
   .on('data', console.log)
   .on('end', () => console.log('done'));
 ```
-
---
-
 
 output >>
 ```node
