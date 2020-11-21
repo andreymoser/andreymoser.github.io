@@ -1,11 +1,11 @@
 {
   "name": "andreymoser.github.io",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "",
   "main": "index.js",
   "engines": {
-    "node": "10.8.0",
-    "npm": "6.2.0"
+    "node": "14.15.0",
+    "npm": "6.14.8"
   },
   "scripts": {
     "dev": "node dev/index.js"
