@@ -13,11 +13,11 @@ class: center, middle
 
 --
 
-+ 15 anos de programação e aprendizados em backend, frontend e arquitetura.
++ **2005-2020**: programação e aprendizados em backend, frontend e arquitetura.
 
 --
 
-+ **Ago/2019**: Desenvolvimento ContractsPro - Contract Manager for Jira
++ **Ago/2019**: MVP: ContractsPro - Contract Manager for Jira
 
 --
 
@@ -29,7 +29,7 @@ class: center, middle
 
 --
 
-+ **Abr-Set/2020**: Desenvolvimento ContractsPro Cloud Beta (Jira Cloud)
++ **Abr-Set/2020**: MVP: ContractsPro Cloud Beta (Jira Cloud)
 
 --
 
@@ -283,25 +283,25 @@ _Code splitting baseado em features:_
 
 --
 
-`  |__ main-app.min.js (~10KB)`
+`  |__ main-app.min.js (~15KB)`
 
-> `💲 Home & Feature Principal`
-
---
-
-`  |__ vendors-core.min.js (~30KB)`
-
-> `⚙️  Dependências básicas (SPA) e comuns a todos os componentes`
+> `💲 Home & Feature Principal + Dependências básicas (SPA)`
 
 --
 
-`  |__ feature-report.min.js (~20KB)`
+`  |__ vendors-core.min.js (~20KB)`
+
+> `⚙️  Dependências comuns a todos os componentes`
+
+--
+
+`  |__ feature-report.min.js (~15KB)`
 
 > `📊 Relatórios gráficos`
 
 --
 
-`  |__ vendors-report.min.js (~40KB)`
+`  |__ vendors-report.min.js (~50KB)`
 
 > `📊 Dependências dos relatórios gráficos`
 
@@ -346,7 +346,7 @@ optimization: {
 
 ### Exemplo:
 
-`/main-app.min.js (Home + Feature principal)`
+`/main-app.min.js (Home + Feature principal + Dependências básicas)`
 
 --
 
@@ -610,12 +610,11 @@ default export class ReportsView extends React.Component {
 
 + https://github.com/bidicode/react-light-components
 
-
 ---
 
 # Perguntas? 🤔
 
----
+--
 
 # .center[Obrigado! 😀]
 

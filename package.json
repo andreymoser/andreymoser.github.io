@@ -8,7 +8,10 @@
     "npm": "6.14.8"
   },
   "scripts": {
-    "dev": "node dev/index.js"
+    "dev": "node dev/index.js",
+    "hide-animations": "sed '/^--$/d' ./talks/202012-web-apps-performance/slides_pt.md > ./talks/202012-web-apps-performance/slides_pt_pdf.md",
+    "build-pdf": "decktape remark http://localhost:8080/talks/202012-web-apps-performance/index_pt_pdf.html ./talks/202012-web-apps-performance/slides_pt.pdf --chrome-arg=--disable-web-security --size 320x240",
+    "export-pdf": "npm run hide-animations && npm run build-pdf"
   },
   "repository": {
     "type": "git",
@@ -23,5 +26,8 @@
   "dependencies": {
     "express": "^4.16.4",
     "open-browsers": "^1.1.1"
+  },
+  "devDependencies": {
+    "decktape": "^3.1.0"
   }
 }

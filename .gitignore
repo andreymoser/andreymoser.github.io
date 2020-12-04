@@ -1,1 +1,3 @@
 /node_modules/
+/talks/**/*pdf.md
+/talks/**/*.pdf
