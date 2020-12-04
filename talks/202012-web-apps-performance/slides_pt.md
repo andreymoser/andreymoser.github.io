@@ -481,7 +481,7 @@ default export class ReportsView extends React.Component {
 
 --
 
-+ O tamanho do bundle depende do _target_ e _polifyl_ (ES5 > ES6)
++ O tamanho do bundle depende do _target_ e _polyfill_ (ES5 > ES6)
 
 --
 
