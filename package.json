@@ -24,7 +24,7 @@
   },
   "homepage": "https://github.com/andreymoser/andreymoser.github.io",
   "dependencies": {
-    "express": "^4.16.4",
+    "express": "^4.17.3",
     "open-browsers": "^1.1.1"
   },
   "devDependencies": {
