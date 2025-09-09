@@ -4,8 +4,6 @@
 
 + [https://github.com/andreymoser](https://github.com/andreymoser)
 
-+ [https://github.com/bidicode](https://github.com/bidicode)
-
 ## Talks
 
 + [Static Web Apps Performance (portuguese)](./talks/202012-web-apps-performance/index_pt.html): TDC POA - 2020
